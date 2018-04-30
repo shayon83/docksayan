@@ -1,0 +1,7 @@
+docker build -t get-started-2.2 .
+docker run -d -p 3500:9090 get-started-2.2
+docker tag get-started-2.2 shayon83/get-started:part2.2
+docker push shayon83/get-started:part2.2
+kubectl delete -f deployment.yaml
+kubectl create -f deployment.yaml
+minikube service get-started --url --namespace=sayan
