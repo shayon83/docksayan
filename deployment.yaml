@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sayan
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: get-started
+  labels:
+    app: get-started
+  namespace: sayan
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: get-started
+  template:
+    metadata:
+      labels:
+        app: get-started
+    spec:
+      containers:
+      - name: get-started
+        image: shayon83/get-started:part2.1
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: get-started
+  name: get-started
+  namespace: sayan
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: get-started
+  type: LoadBalancer
